@@ -1,6 +1,7 @@
 import "./style.css";
 
 const GRID_SIZE = 20;
+const TICK_RATE = 150;
 
 const board = document.getElementById("board");
 
@@ -19,6 +20,22 @@ const snake = [
     {x: 9, y: 10},
     {x: 8, y: 10},
 ];  
+let direction = {x: 1, y: 0};
+
+function update(){
+    // Calcualte the new head position
+    const head = snake[0];
+    const newHead = {
+        x: head.x + direction.x,
+        y: head.y + direction.y,
+    };
+    
+    // Add new head to the front
+    snake.unshift(newHead);
+
+    // Remove the tail
+    snake.pop();
+}
 
 function draw(){
     // Clear all cells
@@ -34,4 +51,10 @@ function draw(){
     });
 }
 
+function gameLoop(){
+    update();
+    draw();
+}
+
 draw();
+setInterval(gameLoop, TICK_RATE);
