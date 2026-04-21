@@ -12,6 +12,19 @@ body {
   background: #222;
 }
 
+#game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+ }
+
+ #score {
+  color: #eee;
+  font-family: monospace;
+  font-size: 1.2rem;
+ }
+
 #board {
   display: grid;
   grid-template-columns: repeat(20, 1fr);
