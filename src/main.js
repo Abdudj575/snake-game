@@ -29,7 +29,6 @@ let food = placeFood();
 let score = 0;
 let gameOver = false;
 let intervalId = null;
-const scoreDisplay = document.getElementById("score");
 
 function placeFood(){
     let position;
@@ -76,6 +75,7 @@ function update(){
     if(checkCollision(newHead)){
         gameOver = true;
         clearInterval(intervalId);
+        document.dispatchEvent(new CustomEvent("snake:die"));
         return;
     }
 
@@ -86,8 +86,10 @@ function update(){
     if(newHead.x === food.x && newHead.y === food.y){
         // Don't remove the tail - the snake grows
         score += 10;
-        scoreDisplay.textContent = `Score: ${score}`;
         food = placeFood();
+        document.dispatchEvent(
+            new CustomEvent("snake:eat", { detail: { score } }),
+        );
     } else{
         // Remove the tail
         snake.pop();
@@ -112,12 +114,19 @@ function draw(){
             }
         }
     });
-
-    // Show game over overlay
-    if(gameOver){
-        board.classList.add("game-over");
-    }
 }
+
+// --- Event Listeners
+
+const scoreDisplay = document.getElementById("score");
+
+document.addEventListener("snake:eat", (e) =>{
+    scoreDisplay.textContent = `Score: ${e.detail.score}`;
+});
+
+document.addEventListener("snake:die", (e) =>{
+    board.classList.add("game-over");
+});
 
 document.addEventListener("keydown", (e) => {
     switch(e.key){
