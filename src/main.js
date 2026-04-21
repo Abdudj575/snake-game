@@ -44,12 +44,31 @@ function draw(){
     // Draw the snake
     snake.forEach((segment, index) => {
         const cellIndex = segment.y * GRID_SIZE + segment.x;
-        cells[cellIndex].classList.add("snake");
-        if(index === 0){
-            cells[cellIndex].classList.add("snake-head");
+            if(cellIndex >= 0 && cellIndex < cells.length){
+            cells[cellIndex].classList.add("snake");
+            if(index === 0){
+                cells[cellIndex].classList.add("snake-head");
+            }
         }
     });
 }
+
+document.addEventListener("keydown", (e) => {
+    switch(e.key){
+        case "ArrowUp":
+            if(direction.y === 0) direction = {x: 0, y: -1};
+            break;
+        case "ArrowDown":
+            if (direction.y === 0) direction = { x: 0, y: 1 };
+            break;
+        case "ArrowLeft":
+            if (direction.x === 0) direction = { x: -1, y: 0 };
+            break;
+        case "ArrowRight":
+            if (direction.x === 0) direction = { x: 1, y: 0 };
+            break;
+    }
+});
 
 function gameLoop(){
     update();
