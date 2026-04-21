@@ -41,3 +41,7 @@ body {
   background: #f44336;
   border-radius: 50%;
 }
+
+#board.game-over {
+  opacity: 0.5;
+}
