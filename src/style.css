@@ -27,3 +27,12 @@ body {
   height: 100%;
   border: 1px solid #1a1a1a;
 }
+
+.snake {
+  background: #4caf50;
+  border-radius: 3px;
+}
+
+.snake-head {
+  background: #66bb6a;
+}
