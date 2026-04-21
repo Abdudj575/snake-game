@@ -17,13 +17,34 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 10px;
- }
+}
 
- #score {
+#hud {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+#score {
   color: #eee;
   font-family: monospace;
   font-size: 1.2rem;
- }
+}
+
+#start-btn {
+  padding: 6px 16px;
+  font-family: monospace;
+  font-size: 0.9rem;
+  background: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#start-btn:hover {
+  background: #66bb6a;
+}
 
 #board {
   display: grid;
@@ -57,4 +78,8 @@ body {
 
 #board.game-over {
   opacity: 0.5;
+}
+
+#board.paused {
+  opacity: 0.7;
 }
