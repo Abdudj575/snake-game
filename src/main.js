@@ -22,6 +22,20 @@ const snake = [
 ];  
 let direction = {x: 1, y: 0};
 
+// Food position
+let food = placeFood();
+
+function placeFood(){
+    let position;
+    do{
+        position = {
+            x: Math.floor(Math.random() * GRID_SIZE),
+            y: Math.floor(Math.random() * GRID_SIZE),
+        };
+    } while (snake.some((seg) => seg.x === position.x && seg.y === position.y));
+    return position;
+}
+
 function update(){
     // Calcualte the new head position
     const head = snake[0];
@@ -33,13 +47,23 @@ function update(){
     // Add new head to the front
     snake.unshift(newHead);
 
-    // Remove the tail
-    snake.pop();
+    // CHeck if snake ate food
+    if(newHead.x === food.x && newHead.y === food.y){
+        // Don't remove the tail - the snake grows
+        food = placeFood();
+    } else{
+        // Remove the tail
+        snake.pop();
+    }
 }
 
 function draw(){
     // Clear all cells
-    cells.forEach((cell) => cell.classList.remove("snake", "snake-head"));
+    cells.forEach((cell) => cell.classList.remove("snake", "snake-head", "food"));
+
+    // Draw the food
+    const foodIndex = food.y * GRID_SIZE + food.x;
+    cells[foodIndex].classList.add("food");
 
     // Draw the snake
     snake.forEach((segment, index) => {

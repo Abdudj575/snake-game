@@ -36,3 +36,8 @@ body {
 .snake-head {
   background: #66bb6a;
 }
+
+.food {
+  background: #f44336;
+  border-radius: 50%;
+}
